@@ -1,0 +1,37 @@
+{
+  "name": "gateway-management-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "jest --detectOpenHandles",
+    "lint:fix": "eslint --fix ./*.js ./sdk/**/*.js ./apis/*.js",
+    "lint": "eslint ./*.js ./sdk/**/*.js ./apis/*.js",
+  },
+  "dependencies": {
+    "@jest/globals": "^29.4.3",
+    "async": "^3.2.3",
+    "bluebird": "^3.7.2",
+    "debug": "~2.6.9",
+    "dotenv": "^6.2.0",
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "express": "~4.16.1",
+    "express-validator": "^6.15.0",
+    "http-errors": "~1.6.3",
+    "jest": "^29.4.1",
+    "mongoose": "^6.10.0",
+    "morgan": "~1.9.1",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.4.1",
+    "supertest": "^6.3.3"
+  }
+}
