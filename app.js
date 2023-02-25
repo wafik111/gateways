@@ -7,6 +7,7 @@ const config = require('./config')
 const debug = require('debug')('tenex-business-services:server');
 const http = require('http');
 const mongoose = require('mongoose')
+const initDbConnection = require('./sdk/repositories/db/index')
 
 const app = express();
 
@@ -16,7 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 
 (async function () {
   try {
-    await mongoose.connect(`mongodb://${config.DB.HOST}/my_database`);
+    console.log('connecting to mongo')
+    await initDbConnection()
+    // await mongoose.connect(`mongodb://${config.DB.HOST}/my_database`);
     console.log('connected succefully ')
 
   }catch (e){
@@ -25,43 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 
 }());
 
-// swagger definition
-// const options = {
-//   definition: {
-//     openapi: '3.0.0',
-//     info: {
-//       title: 'Tenex service APIS. with Swagger',
-//       version: '0.1.0',
-//       description:
-//         'This is a swagger documentation for tenex service APIS.',
-//       license: {
-//         name: 'MIT',
-//         url: 'https://spdx.org/licenses/MIT.html',
-//       },
-//     },
-//     servers: [
-//       {
-//         url: 'http://localhost:3000',
-//       },
-//     ],
-//   },
-//   apis: ['./apis/*.js'],
-// };
-// const specs = swaggerJsdoc(options);
-// app.use(
-//   '/api-docs',
-//   swaggerUi.serve,
-//   swaggerUi.setup(specs, { explorer: true }),
-// );
-
-/// /////////
-
-// app.use((req, res, next) => {
-//   // req.models = models(sequelize);
-//   // req.db = sequelize;
-//   // req.redis = client;
-//   next();
-// });
 
 const files = fs.readdirSync('./apis');
 files.forEach((file) => {

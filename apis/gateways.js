@@ -6,6 +6,7 @@ const Gateway = require('../sdk/repositories/db/models/Gateway')
 const router = express.Router();
 const gatewayServices = require('../sdk/services/GatewayService');
 const peripheralServices = require('../sdk/services/PeripheralService');
+// this api list all the gateways and associated peripherals
 
 router.get('/', async (req, res) => {
   const gateways = await gatewayServices.getGateways(req)
@@ -53,14 +54,14 @@ const createPeripheralValidator = [
     body('vendor').isString().withMessage('vendor must be a string'),
     body('status').isIn(['online', 'offline']).withMessage('status must be "online" or "offline"'),
   ];
-  
+
 
 router.post('/:serialNumber/peripherals', createPeripheralValidator, async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-  
+
     try {
 
         const peripheral = await peripheralServices.createPeripheral(req)
@@ -73,7 +74,7 @@ router.post('/:serialNumber/peripherals', createPeripheralValidator, async (req,
           })
         }
 
-  
+
     } catch (error) {
       console.error(error);
       if (error.code = 11000){
@@ -101,7 +102,7 @@ router.post('/:serialNumber/peripherals', createPeripheralValidator, async (req,
           })
         }
 
-  
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'server error' });

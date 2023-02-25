@@ -8,7 +8,7 @@ module.exports = {
     PASSWORD: process.env.DBpassword
   },
   HTTP:{
-    PORT: '3000'
+    PORT: '3001'
   }
 
 };

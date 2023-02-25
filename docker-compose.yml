@@ -2,11 +2,12 @@ version: '3.9'
 
 services:
   mongo:
-    image: mongo
-    container_name: my_mongo
-    restart: always
+    image: mongo:latest
+    container_name: my_mongo_container_1
+    restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "27018:27017"
+
   app:
     build: .
     ports:
@@ -15,3 +16,5 @@ services:
       - .env
     depends_on:
       - mongo
+    command: bash -c "sleep 2 && node app.js"
+
