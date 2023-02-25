@@ -3,21 +3,25 @@ const pModel = require('../repositories/db/models/Peripheral')
 
 module.exports = {
 
-  getInvoiceSettings: async (req) => {
+  getGateways: async (req) => {
     try {
         return GatewayModel.find().populate('peripherals');
     } catch (e) {
       throw e;
     }
   },
-  createGateway: async (req) => {
-    // const reqSchema = req.headers['x-host'];
-    // const schema = JSON.parse(await req.redis.get(subdomains))[reqSchema].subdomain;
+  fetshGateway: async (serialNumber) => {
     try {
-        const todo = new GatewayModel(req.body);
-            await todo.save();
-      // const invoiceSettings = await req.models.invoiceSettings.createInvoiceSettings(schema, req.body);
-      // return invoiceSettings;
+        return GatewayModel.findOne({ serialNumber }).populate('peripherals');
+    } catch (e) {
+      throw e;
+    }
+  },
+  createGateway: async (req) => {
+    try {
+        const gateway = new GatewayModel(req.body);
+            await gateway.save();
+
     } catch (error) {
       throw error;
     }

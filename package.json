@@ -6,7 +6,7 @@
     "start": "nodemon app.js",
     "test": "jest --detectOpenHandles",
     "lint:fix": "eslint --fix ./*.js ./sdk/**/*.js ./apis/*.js",
-    "lint": "eslint ./*.js ./sdk/**/*.js ./apis/*.js",
+    "lint": "eslint ./*.js ./sdk/**/*.js ./apis/*.js"
   },
   "dependencies": {
     "@jest/globals": "^29.4.3",

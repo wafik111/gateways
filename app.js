@@ -4,8 +4,6 @@ const express = require('express');
 const logger = require('morgan');
 const fs = require('fs');
 const config = require('./config')
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
 const debug = require('debug')('tenex-business-services:server');
 const http = require('http');
 const mongoose = require('mongoose')
@@ -16,20 +14,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// get the domains from the white labels table and poulate redis with it
 (async function () {
   try {
-    await mongoose.connect('mongodb://127.0.0.1/my_database');
+    await mongoose.connect(`mongodb://${config.DB.HOST}/my_database`);
     console.log('connected succefully ')
 
   }catch (e){
     console.log('error connecting to mongo', e)
   }
 
-  // const whiteLabels = await whiteLabelsDAO.findAll();
-  // const subDomains = mapWhiteLabels(whiteLabels);
-  // client = await redisClient.client();
-  // await client.set(subdomains, JSON.stringify(subDomains));
 }());
 
 // swagger definition
@@ -79,14 +72,19 @@ files.forEach((file) => {
 });
 
 app.use((req, res, next) => {
-  next(createError(res.statusCode));
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
 });
 
-app.use((err, req, res) => {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// Error handling middleware function
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.send('<!-- Error -->');
+  res.json({
+    error: {
+      message: err.message
+    }
+  });
 });
 
 express.response.json = function (response) {
