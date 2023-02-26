@@ -18,12 +18,11 @@ docker-compose
 # Usage
 You can access the API using http://localhost:3000/api/gateways. The following endpoints are available:
 
-GET /api/gateways: Returns a list of all gateways and their associated peripherals.<br>
-POST /api/gateways: Creates a new gateway.<br>
-GET /api/gateways/:id: Returns the gateway with the specified ID.<br>
-DELETE /api/gateways/:id: Deletes the gateway with the specified ID.<br>
-POST /api/gateways/:serialNumber/peripherals: create a certain peripheral on specific gateway.<br>
-DELETE /api/gateways/:serialNumber/peripherals/:peripheralId remove a certain peripheral from gateway.<br>
+GET `/api/gateways`: Returns a list of all gateways and their associated peripherals.<br>
+POST `/api/gateways`: Creates a new gateway.<br>
+GET `/api/gateways/:serialNumber`: Returns the gateway with the specified ID.<br>
+POST `/api/gateways/:serialNumber/peripherals`: create a certain peripheral on specific gateway.<br>
+DELETE `/api/gateways/:serialNumber/peripherals/:peripheralId` remove a certain peripheral from gateway.<br>
 
 # use postman to test the api 
 import the postman collection from the root of the project
