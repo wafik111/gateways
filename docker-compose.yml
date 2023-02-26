@@ -3,18 +3,20 @@ version: '3.9'
 services:
   mongo:
     image: mongo:latest
-    container_name: my_mongo_container_1
+    container_name: gatways_mongo_container
     restart: unless-stopped
     ports:
-      - "27018:27017"
+      - "27017:27017"
 
-  app:
+  gateways:
     build: .
+    depends_on:
+      - mongo
     ports:
       - 3000:3000
     env_file:
       - .env
-    depends_on:
-      - mongo
-    command: bash -c "sleep 2 && node app.js"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
 

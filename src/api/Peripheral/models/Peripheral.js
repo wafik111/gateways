@@ -9,25 +9,25 @@ const peripheralSchema = new Schema({
     unique: true
   },
   vendor: String,
-  date:{
+  date: {
     type: Date,
     required: true,
     default: Date.now,
   },
   status: {
     type: String,
-    enum : ['online','offline'],
+    enum: ['online', 'offline'],
     default: 'online'
-},
-gateway: { type: ObjectId, ref: 'Gateway' }
-},{
-    toJSON: {
-        versionKey: false,
-        transform(doc, ret) {
-          ret.id = ret._id;
-          delete ret._id;
-        }
-      }
+  },
+  gateway: { type: ObjectId, ref: 'Gateway' }
+}, {
+  toJSON: {
+    versionKey: false,
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    }
+  }
 });
 
 const Peripheral = mongoose.model('Peripheral', peripheralSchema);
