@@ -1,15 +1,15 @@
 const request = require('supertest');
-const router = require('../app');
-const gatewayServices = require('../sdk/services/GatewayService');
-const connectDb = require('../sdk/repositories/db/index');
-const { server } = require('../app');
+const router = require('../src/server');
+const gatewayServices = require('../src/api/Gateway/services/GatewayService');
+const connectDb = require('../src/database');
+const { httpServer } = require('../src/server');
 const {beforeAll} = require("@jest/globals");
 
 
-jest.setTimeout(10000); // set timeout to 10 seconds
+// jest.setTimeout(10000); // set timeout to 10 seconds
 
-jest.mock('../sdk/services/GatewayService');
-jest.mock('../sdk/repositories/db/index');
+jest.mock('../src/api/Gateway/services/GatewayService');
+jest.mock('../src/database');
 
 beforeAll(() => {
     connectDb.mockImplementation(() => Promise.resolve())
@@ -51,7 +51,7 @@ describe('GET /api/gateways', () => {
         const res = await request(router).get('/api/gateways');
 
         expect(res.status).toBe(200);
-        expect(res.body.message.gateways).toEqual(mockGateways);
+        expect(res.body.data).toEqual(mockGateways);
     });
 
     it('should return an error if gatewayServices.getGateways() throws an error', async () => {
@@ -94,5 +94,5 @@ describe('POST /api/gateways', () => {
 
 
 afterAll(() => {
-    server.close();
+    httpServer.close();
 });

@@ -6,23 +6,43 @@ const { server, database } = require('./config/config');
 const apiController = require('./api/index');
 
 const connectToDb = require('./database');
+const http = require("http");
+let httpServer;
 
-(async () => {
+
   const connectionString = `mongodb://${database.host}:${database.port}/${(process.env.NODE_ENV === 'testing') ? database.dbNameTesting : database.dbName }`;
   const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
-  await connectToDb(connectionString, options);
+  (async function () {
+    await connectToDb(connectionString, options);
+  }());
+
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  
+
   app.use('/api', apiController);
 
-  app.all('*', async () => {
-    throw new Error("Could not find requested url");
+  app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
   });
-  
-  app.listen(server.port, () => {
-    console.log(`Server started at ${server.port} ...`);
+
+// Error handling middleware function
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+      error: {
+        message: err.message
+      }
+    });
   });
-})();
+
+  httpServer = app.listen(server.port, () => console.log(`Listening at port ${server.port}`));
+
+
+
+
+module.exports = app;
+module.exports.httpServer = httpServer;
