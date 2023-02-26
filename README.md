@@ -5,7 +5,6 @@ This repository contains an API that manages IoT gateways and their associated p
 # Prerequisites
 To run this API, you need to have the following installed on your machine:
 
-Node.js v14 or later
 Docker
 docker-compose
 
@@ -24,6 +23,9 @@ GET /api/gateways/:id: Returns the gateway with the specified ID.
 DELETE /api/gateways/:id: Deletes the gateway with the specified ID.
 POST /api/gateways/:serialNumber/peripherals: create a certain peripheral on specific gateway.
 DELETE /api/gateways/:serialNumber/peripherals/:peripheralId remove a certain peripheral from gateway.
+
+# use postman to test the api 
+import the postman collection from the root of the project
 
 
 # Testing

@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "43febf49-8e88-458d-8367-b7c6f078c5a0",
+		"name": "Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9134640"
+	},
+	"item": [
+		{
+			"name": "create Gateway",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serialNumber\": \"6164f4b4cbff01dc6fd57f67\",\n    \"name\": \"Gateway 4\",\n    \"ipv4\": \"192.168.1.1\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/gateways",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"gateways"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list-gatways",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/gateways",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"gateways"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-peripheral",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"uid\": 1001,\n  \"vendor\": \"Siemens\",\n  \"status\": \"offline\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/gateways/:serialNumber/peripherals",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"gateways",
+						":serialNumber",
+						"peripherals"
+					],
+					"variable": [
+						{
+							"key": "serialNumber",
+							"value": "6164f4b4cbff01dc6fd57f60"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "view-gateway-details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/gateways/:serialNumber",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"gateways",
+						":serialNumber"
+					],
+					"variable": [
+						{
+							"key": "serialNumber",
+							"value": "6164f4b4cbff01dc6fd57f60"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove-peripheral",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/gateways/:serialNumber/peripherals/:peripheralId",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"gateways",
+						":serialNumber",
+						"peripherals",
+						":peripheralId"
+					],
+					"variable": [
+						{
+							"key": "serialNumber",
+							"value": "6164f4b4cbff01dc6fd57f60"
+						},
+						{
+							"key": "peripheralId",
+							"value": "63f93e9611be1190f19d331d"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
