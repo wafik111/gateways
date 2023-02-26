@@ -10,9 +10,9 @@ Docker
 docker-compose
 
 # Setup
-1- Clone this repository using git clone https://github.com/wafik111/gateways.git.
-2- Navigate into the cloned repository directory.
-3- Run docker-compose up --build to start the API and MongoDB in a Docker container.
+1- Clone this repository using git clone https://github.com/wafik111/gateways.git.<br>
+2- Navigate into the cloned repository directory.<br>
+3- Run docker-compose up --build to start the API and MongoDB in a Docker container.<br>
 
 
 # Usage
