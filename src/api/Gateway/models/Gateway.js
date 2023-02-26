@@ -9,7 +9,7 @@ const gatewaySchema = new Schema({
   ipv4: String,
   peripherals: [{ type: ObjectId, ref: 'Peripheral' }]
 
-},{
+}, {
   toJSON: {
     versionKey: false,
     transform(doc, ret) {
@@ -20,6 +20,5 @@ const gatewaySchema = new Schema({
 });
 
 const Gateway = mongoose.model('Gateway', gatewaySchema);
-
 
 module.exports = Gateway
