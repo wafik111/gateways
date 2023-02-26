@@ -1,9 +1,10 @@
 # Gateways API
-This repository contains an API that manages IoT gateways and their associated peripherals. It is built using Node.js, Express.js, and MongoDB.
+<p>This repository contains an API that manages IoT gateways and their associated peripherals. It is built using Node.js, 
+Express.js, and MongoDB.</p>
 
 
 # Prerequisites
-To run this API, you need to have the following installed on your machine:
+<p>To run this API, you need to have the following installed on your machine:</p>
 
 Docker
 docker-compose
@@ -17,7 +18,7 @@ docker-compose
 # Usage
 You can access the API using http://localhost:3000/api/gateways. The following endpoints are available:
 
-GET /api/gateways: Returns a list of all gateways and their associated peripherals.
+GET /api/gateways: Returns a list of all gateways and their associated peripherals.\n
 POST /api/gateways: Creates a new gateway.
 GET /api/gateways/:id: Returns the gateway with the specified ID.
 DELETE /api/gateways/:id: Deletes the gateway with the specified ID.
