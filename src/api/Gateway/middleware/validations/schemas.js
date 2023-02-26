@@ -1,15 +1,16 @@
 const { body } = require('express-validator');
+const Gateway = require("../../models/Gateway");
 
 const createNewGatewayValidation = [
   body('serialNumber')
-    .isMongoId()
-    .withMessage('Invalid serial number')
+    .isString()
+    .withMessage('Serial Number Must Be a String')
     .custom(async value => {
       const existingGateway = await Gateway.findOne({ serialNumber: value });
       if (existingGateway) {
         return Promise.reject('Serial number already exists');
       }
-    }),    
+    }),
   body('name').isString().withMessage('Name must be a string').isLength({ min: 3 })
     .withMessage('Name must be at least 3 characters long'),
   body('ipv4').isIP().withMessage('Invalid IPv4 address')

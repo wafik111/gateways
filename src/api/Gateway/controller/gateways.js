@@ -20,11 +20,6 @@ async function listAllGateways(req, res) {
 }
 
 async function createNewGateway(req, res) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
   const { serialNumber, ipv4, name } = req.body;
   try {
     const newGateway = await gatewayService.createGateway({ serialNumber, ipv4, name })

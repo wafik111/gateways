@@ -5,7 +5,7 @@ const { createNewGatewayValidation, createPeripheralValidation } = require('./mi
 const { validateRequest } = require('./middleware/validate-request');
 const router = express.Router();
 
-router.post('/', [...createNewGatewayValidation], gatewayCtrl.createNewGateway);
+router.post('/', createNewGatewayValidation, validateRequest, gatewayCtrl.createNewGateway);
 router.get('/', gatewayCtrl.listAllGateways);
 router.get('/:serialNumber', gatewayCtrl.getGatewayBySerialNumber);
 
