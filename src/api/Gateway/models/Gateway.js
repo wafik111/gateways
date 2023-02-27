@@ -1,12 +1,13 @@
-const mongoose = require('mongoose')
-// const transform = require('mongoose').transform
+const mongoose = require('mongoose');
+// const uniqueValidator = require('mongoose-unique-validator');
+
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const gatewaySchema = new Schema({
-  serialNumber: ObjectId,
-  name: String,
-  ipv4: String,
+  serialNumber: { type: String, required: true, unique: true },
+  name: {type: String},
+  ipv4: {type: String},
   peripherals: [{ type: ObjectId, ref: 'Peripheral' }]
 
 }, {
@@ -18,6 +19,8 @@ const gatewaySchema = new Schema({
     }
   }
 });
+
+// gatewaySchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' })
 
 const Gateway = mongoose.model('Gateway', gatewaySchema);
 

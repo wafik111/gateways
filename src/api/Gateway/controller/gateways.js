@@ -1,10 +1,3 @@
-const express = require('express');
-const Gateway = require('../models/Gateway')
-const {validationResult} = require('express-validator');
-
-
-
-const router = express.Router();
 const gatewayService = require('../services/GatewayService');
 const peripheralService = require('../../Peripheral/services/PeripheralService');
 
@@ -27,6 +20,9 @@ async function createNewGateway(req, res) {
   }
   catch (error) {
     console.log('GATEWAY_CONTROLLER_ERROR: createNewGateway ', error);
+    if (error.code === 400) {
+      return res.status(error.code).json({ message: error.message });
+    }
     return res.status(500).json({ message: `Couldn't Create New Gateway at the moment` });
   }
 }
@@ -58,8 +54,8 @@ async function createNewPeripheralDevice(req, res) {
   try {
     const peripheral = await peripheralService.createPeripheral({ uid, vendor, status }, gatewaySerialNumber);
     if (peripheral) {
-      return res.status(201).send({ data: peripheral });
-    }
+      return res.status(201).send({ data: peripheral} );
+    } 
     else {
       console.error('GATEWAY_CONTROLLER_ERROR: createNewPeripheralDevice',error);
       return res.status(400).json({
@@ -69,7 +65,17 @@ async function createNewPeripheralDevice(req, res) {
   }
   catch (error) {
     console.error('GATEWAY_CONTROLLER_ERROR: createNewPeripheralDevice ',error);
-    if (error.code = 11000) {
+    if (error.code == 400 && error.type === 'GW_NOT_FOUND') {
+      return res.status(400).json({
+        error: error.message
+      })
+    }
+    if (error.code == 400 && error.type === 'MAX_DEVICE_NUM') {
+      return res.status(400).json({
+        error: error.message
+      })
+    }
+    if (error.code == 11000) {
       return res.status(400).json({
         error: 'peripheral UID already exist , choose another uid'
       })
