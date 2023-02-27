@@ -6,10 +6,16 @@ module.exports = {
   createPeripheral: async (peripheral, gatewaySerialNumber) => {
     const gateway = await Gateway.findOne({ serialNumber: gatewaySerialNumber });
     if (!gateway) {
-      throw new Error(`Couldn't find Gateway with SN ${gatewaySerialNumber}`);
+      let e = new Error(`Couldn't find Gateway with SN ${gatewaySerialNumber}`);
+      e.code = 400;
+      e.type = 'GW_NOT_FOUND';
+      throw e;
     }
     if (gateway.peripherals.length == 10) {
-      throw new Error(`Maximum Peripheral devices reached on Gateway ${gatewaySerialNumber}`);
+      let e =  new Error(`Maximum Peripheral devices reached on Gateway ${gatewaySerialNumber}`);
+      e.code = 400;
+      e.type = 'MAX_DEVICE_NUM';
+      throw e;
     }
     const newPeripheral = new Peripheral({ ...peripheral, gateway: gateway._id });
     await newPeripheral.save();

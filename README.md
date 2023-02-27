@@ -24,7 +24,7 @@ GET `/api/gateways/:serialNumber`: Returns the gateway with the specified ID.<br
 POST `/api/gateways/:serialNumber/peripherals`: create a certain peripheral on specific gateway.<br>
 DELETE `/api/gateways/:serialNumber/peripherals/:peripheralId` remove a certain peripheral from gateway.<br>
 
-# use postman to test the api 
+# use postman to test the api
 import the postman collection from the root of the project
 
 
